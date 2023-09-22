@@ -4,6 +4,7 @@ import Title from './components/Title'
 import { Modal } from './components/Modal'
 
 function App() {
+  const [showModal, setShowModal] = useState(false)
   const [showEvents, setShowEvents] = useState(true)
   const [events, setEvents] = useState([
     { title: "mario's birthday bash", id: 1 },
@@ -16,6 +17,8 @@ function App() {
       return prevEvents.filter((event) => id !== event.id)
     })
   }
+
+  const handleClose = () => setShowModal(false)
 
   const subtitle = 'All the latest news in Marioland'
 
@@ -42,10 +45,15 @@ function App() {
             <button onClick={() => handleClick(event.id)}>delete event</button>
           </div>
         ))}
-      <Modal>
-        <h2>10% off coupon code!</h2>
-        <p>Use the code NINJA10 at the checkout.</p>
-      </Modal>
+      {showModal && (
+        <Modal handleClose={handleClose}>
+          <h2>10% off coupon code!</h2>
+          <p>Use the code NINJA10 at the checkout.</p>
+        </Modal>
+      )}
+      <div>
+        <button onClick={() => setShowModal(true)}>Show modal</button>
+      </div>
     </div>
   )
 }
